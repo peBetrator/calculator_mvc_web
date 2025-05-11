@@ -1,0 +1,145 @@
+﻿@model CalcMvcWeb.Models.CalcViewModel
+
+@{
+    ViewData["Title"] = "Calculator";
+}
+
+<h1>Calculator</h1>
+
+<div class="calculator">
+    <form asp-action="Calculate" method="post">
+        <input type="text" name="Expression" value="@Model.Expression"
+               class="display @(ViewData["InvalidBrackets"] as bool? == true ? "invalid" : "")" readonly />
+
+
+        <div class="buttons">
+            <div class="button-row">
+                <button type="submit" name="button" value="2nd">2ⁿᵈ</button>
+                <button type="submit" name="button" value="π">π</button>
+                <button type="submit" name="button" value="e">e</button>
+                <button type="submit" name="button" value="C">C</button>
+                <button type="submit" name="button" value="⌫">⌫</button>
+            </div>
+            <div class="button-row">
+                <button type="submit" name="button" value="^2">x²</button>
+                <button type="submit" name="button" value="1/x">1/x</button>
+                <button type="submit" name="button" value="abs("> |x| </button>
+                <button type="submit" name="button" value="exp(">exp</button>
+                <button type="submit" name="button" value="mod">mod</button>
+            </div>
+            <div class="button-row">
+                <button type="submit" name="button" value="sqrt(">√</button>
+                <button type="submit" name="button" value="(">(</button>
+                <button type="submit" name="button" value=")">)</button>
+                <button type="submit" name="button" value="fact(">n!</button>
+                <button type="submit" name="button" value="/">÷</button>
+            </div>
+            <div class="button-row">
+                <button type="submit" name="button" value="^">xʸ</button>
+                <button type="submit" class="number" name="button" value="7">7</button>
+                <button type="submit" class="number" name="button" value="8">8</button>
+                <button type="submit" class="number" name="button" value="9">9</button>
+                <button type="submit" name="button" value="*">×</button>
+            </div>
+            <div class="button-row">
+                <button type="submit" name="button" value="10^">10ˣ</button>
+                <button type="submit" class="number" name="button" value="4">4</button>
+                <button type="submit" class="number" name="button" value="5">5</button>
+                <button type="submit" class="number" name="button" value="6">6</button>
+                <button type="submit" name="button" value="-">−</button>
+            </div>
+            <div class="button-row">
+                <button type="submit" name="button" value="log(">log</button>
+                <button type="submit" class="number" name="button" value="1">1</button>
+                <button type="submit" class="number" name="button" value="2">2</button>
+                <button type="submit" class="number" name="button" value="3">3</button>
+                <button type="submit" name="button" value="+">+</button>
+            </div>
+            <div class="button-row">
+                <button type="submit" name="button" value="ln(">ln</button>
+                <button type="submit" name="button" value="+/-">±</button>
+                <button type="submit" class="number" name="button" value="0">0</button>
+                <button type="submit" name="button" value=".">.</button>
+                <button type="submit" name="button" value="=" class="equals">=</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+@section Styles {
+    <style>
+        .calculator {
+            width: 350px;
+            margin: 30px auto;
+            text-align: center;
+        }
+
+        .display {
+            width: 100%;
+            height: 60px;
+            font-size: 28px;
+            margin-bottom: 15px;
+            text-align: right;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .buttons .button-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 8px;
+            gap: 8px;
+        }
+
+        .buttons button {
+            width: 60px;
+            height: 60px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background-color: #f1f1f1;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+            .buttons button:hover {
+                background-color: #ddd;
+            }
+
+        .buttons .number {
+            background-color: white;
+            border: 1px solid #ccc; /* Tiny gray border */
+            border-radius: 8px;
+        }
+
+        .buttons .equals {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+            .buttons .equals:hover {
+                background-color: #45a049;
+            }
+
+        .result-display h3 {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        .display.invalid {
+            border: 2px solid red;
+        }
+    </style>
+}
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
