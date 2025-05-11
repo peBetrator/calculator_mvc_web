@@ -1,5 +1,7 @@
 # ASP.NET MVC Calculator
 
+![Calculator Screenshot](docs/Screenshot_2025-05-11_192233.png)
+
 A modern, scientific calculator web application built using ASP.NET MVC.  
 Supports basic arithmetic, advanced scientific operations, memory functions, and clean UI inspired by the Windows Calculator.
 
