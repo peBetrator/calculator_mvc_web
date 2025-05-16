@@ -8,8 +8,7 @@
 
 <div class="calculator">
     <form asp-action="Calculate" method="post">
-        <input type="text" name="Expression" value="@Model.Expression"
-               class="display @(ViewData["InvalidBrackets"] as bool? == true ? "invalid" : "")" readonly />
+        <input type="text" name="Expression" value="@Model.Expression" class="display @(ViewData["InvalidBrackets"] as bool? == true ? "invalid" : "")" readonly />
 
 
         <div class="buttons">
@@ -17,8 +16,8 @@
                 <button type="submit" name="button" value="2nd">2ⁿᵈ</button>
                 <button type="submit" name="button" value="π">π</button>
                 <button type="submit" name="button" value="e">e</button>
-                <button type="submit" name="button" value="C">C</button>
-                <button type="submit" name="button" value="⌫">⌫</button>
+                <button type="submit" name="button" class="danger" value="C">C</button>
+                <button type="submit" name="button" class="warning" value="⌫">⌫</button>
             </div>
             <div class="button-row">
                 <button type="submit" name="button" value="^2">x²</button>
@@ -114,6 +113,25 @@
             border: 1px solid #ccc; /* Tiny gray border */
             border-radius: 8px;
         }
+
+        .buttons .danger {
+            background-color: #dc3545;
+            color: white
+        }
+
+            .buttons .danger:hover {
+               background-color: #c82333;
+            }
+
+        .buttons .warning {
+           background-color: #ffc107;
+            color: white
+        }
+
+            .buttons .warning:hover {
+               background-color: #e0a800;
+            }
+
 
         .buttons .equals {
             background-color: #4CAF50;

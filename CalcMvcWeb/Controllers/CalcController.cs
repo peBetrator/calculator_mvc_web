@@ -70,40 +70,41 @@ namespace CalcMvcWeb.Controllers
                 if (double.TryParse(model.Expression, out double value))
                     model.Expression = (-value).ToString();
             }
-            else if (button == "MC")
+            else if (button == "π")
             {
-                model.Memory = 0;
+                model.Expression = Math.PI.ToString();
             }
-            else if (button == "MR")
+            else if (button == "e")
             {
-                model.Expression += model.Memory.ToString();
+                model.Expression = Math.E.ToString();
             }
-            else if (button == "M+")
+            else if (IsFunctionButton(button))
             {
-                if (double.TryParse(model.Result, out double value))
-                    model.Memory += value;
+                // Apply the function immediately using the current expression value
+                var functionExpression = $"{button}({model.Expression})";
+                model.Expression = cs.EvaluateExpression(functionExpression);
+                model.Result = model.Expression;
             }
-            else if (button == "M-")
+            else if (model.Expression == "Error")
             {
-                if (double.TryParse(model.Result, out double value))
-                    model.Memory -= value;
-            }
-            else if (button == "MS")
-            {
-                if (double.TryParse(model.Result, out double value))
-                    model.Memory = value;
+                model.Expression = button;
             }
             else
             {
-                if (model.Expression == "Error")
-                    model.Expression = button;
-                else
-                    model.Expression += button;
+                model.Expression += button;
             }
 
             ViewData["InvalidBrackets"] = HasMismatchedBrackets(model.Expression);
             return View("Index", model);
         }
+
+        private bool IsFunctionButton(string button)
+        {
+            // Add here all function names you want to evaluate immediately
+            var functions = new HashSet<string> { "sqrt", "log", "ln", "sin", "cos", "tan", "abs", "fact" };
+            return functions.Contains(button);
+        }
+
 
     }
 }
